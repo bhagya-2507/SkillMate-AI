@@ -194,7 +194,7 @@ const generateCareerGuidance = async (req, res, next) => {
   try {
     const { interests, skills, education, goals } = req.body;
 
-    const recommendation = await geminiService.generateCareerRoadmap(
+    const recommendation = await geminiService.generateCareerGuidance(
       interests,
       skills,
       education || req.user.education,
