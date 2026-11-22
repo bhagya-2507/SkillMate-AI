@@ -1,4 +1,4 @@
-const { body, param } = require('express-validator');
+﻿const { body, param } = require('express-validator');
 
 const createStudyPlanValidator = [
   body('subject')
@@ -35,7 +35,7 @@ const createStudyPlanValidator = [
 
 const updateTaskValidator = [
   param('id')
-    .isInt({ min: 1 }).withMessage('Valid task ID is required.'),
+    .isMongoId().withMessage('Valid task ID is required.'),
   body('is_completed')
     .isBoolean().withMessage('is_completed must be a boolean value.')
 ];
@@ -44,3 +44,4 @@ module.exports = {
   createStudyPlanValidator,
   updateTaskValidator
 };
+
