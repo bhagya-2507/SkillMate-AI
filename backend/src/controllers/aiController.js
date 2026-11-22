@@ -146,19 +146,41 @@ const summarizeNotes = async (req, res, next) => {
 
     const truncatedText = extractedText.substring(0, 12000);
 
-    const summaryData = await geminiService.summarizeNotes(
+    const generatedSummary = await geminiService.summarizeNotes(
       truncatedText,
       originalname
     );
 
+    // Gemini service currently returns a string, normalize it safely.
+    const summaryData = typeof generatedSummary === 'string'
+      ? {
+          title: `Summary: ${originalname}`,
+          summary: generatedSummary.trim(),
+          key_points: []
+        }
+      : {
+          title: generatedSummary?.title || `Summary: ${originalname}`,
+          summary: typeof generatedSummary?.summary === 'string'
+            ? generatedSummary.summary.trim()
+            : '',
+          key_points: generatedSummary?.key_points || []
+        };
+
+    if (!summaryData.summary) {
+      return res.status(502).json({
+        success: false,
+        message: 'AI could not generate a summary. Please try again.'
+      });
+    }
+
     const noteRecord = await Note.create({
       user_id: req.user.id,
-      title: summaryData.title || `Summary: ${originalname}`,
+      title: summaryData.title,
       original_filename: originalname,
       file_type: mimetype.includes('pdf') ? 'pdf' : 'txt',
       file_size: size,
       summary: summaryData.summary,
-      key_points: summaryData.key_points || []
+      key_points: summaryData.key_points
     });
 
     return res.status(201).json({
@@ -343,4 +365,5 @@ module.exports = {
   evaluateInterviewPractice,
   getInterviewHistory
 };
+
 
