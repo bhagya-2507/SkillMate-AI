@@ -1,4 +1,4 @@
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+﻿const { GoogleGenerativeAI } = require('@google/generative-ai');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -19,11 +19,21 @@ const chatWithAI = async (conversationHistory, userMessage) => {
 
   if (client) {
     try {
-      const model = client.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = client.getGenerativeModel({ model: 'gemini-3.8-flash' });
       const prompt = `You are SkillMate AI, a friendly, supportive college senior and tutor helping B.Tech students (CSE/IT/ECE).
 Explain engineering and programming concepts in simple, clear, relatable language with real-world analogies (like GPay/bank for ACID, Chrome tabs for threads, book index for B+ Trees).
 Use clean bullet points and short code snippets where helpful.
 Avoid overly stiff, robotic AI jargon. Sound like a helpful senior explaining a concept before semester exams or placement interviews.
+
+IMPORTANT LANGUAGE RULES:
+- Always reply in the language requested by the student.
+- If the student says "talk in English", respond completely in English.
+- If the student says "talk in Hindi", respond in Hindi.
+- If the student uses Hinglish, respond naturally in Hinglish.
+- Follow explicit language preferences from the conversation history.
+- A newer language instruction overrides an older preference.
+- Never ignore a language change request.
+- Do not mix languages unless the student requests it.
 
 Conversation History:
 ${conversationHistory.map(m => `${m.sender}: ${m.message}`).join('\n')}
@@ -35,7 +45,7 @@ Tutor:`;
       const response = await result.response;
       return response.text();
     } catch (error) {
-      console.warn('⚠️ Gemini API chat call error or key missing:', error.message);
+      console.warn('âš ï¸ Gemini API chat call error or key missing:', error.message);
     }
   }
 
@@ -43,16 +53,16 @@ Tutor:`;
   const msg = userMessage.toLowerCase();
 
   if (msg.includes('acid') || msg.includes('transaction') || msg.includes('dbms')) {
-    return `### DBMS: ACID Properties Samjho Simple Bank Example Se 🏦
+    return `### DBMS: ACID Properties Samjho Simple Bank Example Se ðŸ¦
 
-ACID properties ensure karti hain ki database mein transactions hamesha safe aur accurate rahein. Example: Aapne dost ko Google Pay se ₹500 transfer kiye.
+ACID properties ensure karti hain ki database mein transactions hamesha safe aur accurate rahein. Example: Aapne dost ko Google Pay se â‚¹500 transfer kiye.
 
 1. **A - Atomicity ("All or Nothing")**:
-   - Ya toh pura transaction complete hoga (aapke account se ₹500 kate aur dost ke account mein credit hue).
+   - Ya toh pura transaction complete hoga (aapke account se â‚¹500 kate aur dost ke account mein credit hue).
    - Ya fir agar beech mein internet gaya, toh transaction fail ho jayega aur aapke paise wapas aa jayenge. Aadha-adhura transaction kabhi nahi hoga!
 
 2. **C - Consistency ("Rules Follow Honge")**:
-   - Transaction se pehle aur transaction ke baad database valid state mein rahega. Agar aapka balance ₹400 tha, toh ₹500 ka transfer allow nahi hoga. Total money system mein constant rahega.
+   - Transaction se pehle aur transaction ke baad database valid state mein rahega. Agar aapka balance â‚¹400 tha, toh â‚¹500 ka transfer allow nahi hoga. Total money system mein constant rahega.
 
 3. **I - Isolation ("No Interference")**:
    - Agar aap do logon ko ek saath paise bhej rahe ho, toh dono transactions alag-alag execute honge jaise woh akele chal rahe hon. Koi data clash nahi hoga.
@@ -60,11 +70,11 @@ ACID properties ensure karti hain ki database mein transactions hamesha safe aur
 4. **D - Durability ("Permanent Save")**:
    - Ek baar "Transfer Successful" ka message aa gaya, toh chahe turant baad bank ka server crash ho jaye, aapka record safe rahega aur paise gayab nahi honge.
 
-💡 **Viva Tip:** Examiner puche toh hamesha bank balance ya ticket booking ka example dena, full marks milte hain!`;
+ðŸ’¡ **Viva Tip:** Examiner puche toh hamesha bank balance ya ticket booking ka example dena, full marks milte hain!`;
   }
 
   if (msg.includes('process') || msg.includes('thread') || msg.includes('operating system') || msg.includes('os')) {
-    return `### OS: Process vs Thread Ka Real-World Difference 💻
+    return `### OS: Process vs Thread Ka Real-World Difference ðŸ’»
 
 Yeh Operating Systems viva ka sabse favorite question hai!
 
@@ -75,7 +85,7 @@ Yeh Operating Systems viva ka sabse favorite question hai!
 
 2. **Thread (Lightweight)**:
    - Thread process ke andar ka ek chhota worker unit hota hai.
-   - Example: Chrome browser ke andar jo aapne **3 alag tabs** khole hain, ya ek tab mein video play ho raha hai aur dusre mein file download ho rahi hai — yeh sab threads hain!
+   - Example: Chrome browser ke andar jo aapne **3 alag tabs** khole hain, ya ek tab mein video play ho raha hai aur dusre mein file download ho rahi hai â€” yeh sab threads hain!
    - Sabhi threads apne parent process ki memory aapas mein share karte hain.
 
 | Feature | Process | Thread |
@@ -84,24 +94,24 @@ Yeh Operating Systems viva ka sabse favorite question hai!
 | Creation Time | Slow hota hai (Heavy) | Fast hota hai (Light) |
 | Crash Effect | Ek process crash ho toh doosra safe rehta hai | Ek thread crash ho toh pura process ruk sakta hai |
 
-💡 **Exam Tip:** Remember: "A Process has one or more Threads."`;
+ðŸ’¡ **Exam Tip:** Remember: "A Process has one or more Threads."`;
   }
 
   if (msg.includes('dsa') || msg.includes('array') || msg.includes('stack') || msg.includes('queue') || msg.includes('linked list')) {
-    return `### DSA: Core Data Structures Ka Quick Revision ⚡
+    return `### DSA: Core Data Structures Ka Quick Revision âš¡
 
 College exams aur coding rounds ke liye inka funda clear rakhein:
 
 1. **Stack (LIFO - Last In, First Out)**:
    - **Real Example**: Shaadi mein rakhi hui plates ka dher, ya browser ka **Back button**.
    - Jo cheez sabse aakhiri mein dali (push), woh sabse pehle bahar aayegi (pop).
-   - Functions: \`push()\`, \`pop()\`, \`peek()\` — all in **O(1)** time.
+   - Functions: \`push()\`, \`pop()\`, \`peek()\` â€” all in **O(1)** time.
    - Exam use-case: Recursion stack, Undo operation, Balanced Parentheses check.
 
 2. **Queue (FIFO - First In, First Out)**:
    - **Real Example**: Cinema hall ke ticket counter ki line.
    - Jo pehle line mein khada hua, use pehle ticket milegi.
-   - Functions: \`enqueue()\` (line mein judna), \`dequeue()\` (line se nikalna) — in **O(1)**.
+   - Functions: \`enqueue()\` (line mein judna), \`dequeue()\` (line se nikalna) â€” in **O(1)**.
    - Exam use-case: CPU job scheduling, Printer spooling, BFS graph traversal.
 
 3. **Array vs Linked List**:
@@ -110,7 +120,7 @@ College exams aur coding rounds ke liye inka funda clear rakhein:
   }
 
   if (msg.includes('tcp') || msg.includes('udp') || msg.includes('network') || msg.includes('cn')) {
-    return `### Computer Networks: TCP vs UDP (The Phone Call vs Letter) 🌐
+    return `### Computer Networks: TCP vs UDP (The Phone Call vs Letter) ðŸŒ
 
 1. **TCP (Transmission Control Protocol - Reliable)**:
    - **Analogy**: Jaise aap kisi ko **phone call** karte hain. Pehle connection banta hai ("Hello, awaz aa rahi hai?"), fir baat hoti hai, aur aakhiri mein "bye" bolkar cut hota hai.
@@ -124,7 +134,7 @@ College exams aur coding rounds ke liye inka funda clear rakhein:
   }
 
   if (msg.includes('oops') || msg.includes('oop') || msg.includes('java') || msg.includes('c++')) {
-    return `### OOPs: 4 Pillars of Object Oriented Programming 🏛️
+    return `### OOPs: 4 Pillars of Object Oriented Programming ðŸ›ï¸
 
 In chaaro pillars ko simple real-world examples se yaad rakhein:
 
@@ -146,7 +156,7 @@ In chaaro pillars ko simple real-world examples se yaad rakhein:
   }
 
   // Friendly default
-  return `### Hello! Kahiye B.Tech ki padhai mein kya help chahiye? 📚
+  return `### Hello! Kahiye B.Tech ki padhai mein kya help chahiye? ðŸ“š
 
 Aap mujhse semester exams ya placement se related koi bhi topic puch sakte hain, jaise:
 - **DSA**: Array, Linked List, Stack, Binary Search, Trees
@@ -166,7 +176,7 @@ const generateStudyPlan = async (subject, topic, targetDate, dailyHours, difficu
 
   if (client) {
     try {
-      const model = client.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = client.getGenerativeModel({ model: 'gemini-3.8-flash' });
       const prompt = `Create a realistic 5-day study plan for a B.Tech engineering student studying "${subject}" with focus on "${topic}".
 Difficulty: ${difficulty}. Target completion date: ${targetDate}. Daily hours: ${dailyHours}.
 Format: Return ONLY a raw JSON object:
@@ -186,7 +196,7 @@ Format: Return ONLY a raw JSON object:
       const parsed = JSON.parse(cleaned);
       if (parsed.tasks && Array.isArray(parsed.tasks)) return parsed;
     } catch (e) {
-      console.warn('⚠️ Gemini study plan fallback triggered:', e.message);
+      console.warn('âš ï¸ Gemini study plan fallback triggered:', e.message);
     }
   }
 
@@ -231,7 +241,7 @@ const generateQuiz = async (subject, topic, difficulty, questionCount = 5) => {
 
   if (client) {
     try {
-      const model = client.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = client.getGenerativeModel({ model: 'gemini-3.8-flash' });
       const prompt = `Generate ${questionCount} multiple choice questions for a college engineering exam on subject: "${subject}", topic: "${topic}", difficulty: "${difficulty}".
 Questions must be realistic B.Tech semester/placement level.
 Return ONLY valid JSON array:
@@ -252,7 +262,7 @@ Return ONLY valid JSON array:
       const parsed = JSON.parse(cleaned);
       if (Array.isArray(parsed) && parsed.length > 0) return parsed;
     } catch (e) {
-      console.warn('⚠️ Gemini quiz generation fallback triggered:', e.message);
+      console.warn('âš ï¸ Gemini quiz generation fallback triggered:', e.message);
     }
   }
 
@@ -298,10 +308,10 @@ Return ONLY valid JSON array:
       question_text: `What is the worst-case time complexity of QuickSort when the chosen pivot is always the smallest or largest element?`,
       option_a: "O(n log n)",
       option_b: "O(n)",
-      option_c: "O(n²)",
+      option_c: "O(nÂ²)",
       option_d: "O(log n)",
       correct_answer: "C",
-      explanation: "When partitions are completely unbalanced (e.g., sorting an already sorted array with first element as pivot), QuickSort degrades to O(n²)."
+      explanation: "When partitions are completely unbalanced (e.g., sorting an already sorted array with first element as pivot), QuickSort degrades to O(nÂ²)."
     }
   ];
 
@@ -316,7 +326,7 @@ const summarizeNotes = async (extractedText, originalFilename) => {
 
   if (client) {
     try {
-      const model = client.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = client.getGenerativeModel({ model: 'gemini-3.8-flash' });
       const prompt = `You are an experienced college professor helping engineering students revise notes before exams.
 Summarize this document ("${originalFilename}") in simple, high-yield revision bullet points:
 - Quick 2-line summary
@@ -329,12 +339,12 @@ ${extractedText.substring(0, 8000)}`;
       const result = await model.generateContent(prompt);
       return (await result.response).text();
     } catch (e) {
-      console.warn('⚠️ Gemini summarizer fallback triggered:', e.message);
+      console.warn('âš ï¸ Gemini summarizer fallback triggered:', e.message);
     }
   }
 
   // Realistic student revision summary
-  return `### 📑 Exam Revision Notes: ${originalFilename}
+  return `### ðŸ“‘ Exam Revision Notes: ${originalFilename}
 
 **Quick Summary:**
 This material covers foundational principles and standard theoretical workflows essential for B.Tech semester exams and viva presentations.
@@ -346,21 +356,21 @@ This material covers foundational principles and standard theoretical workflows 
 2. **Time & Space Trade-offs**: In viva, always specify whether an optimization saves execution time at the cost of memory.
 3. **Data Integrity**: Enforce constraints at the database level rather than relying solely on client-side inputs.
 4. **Asynchronous Non-Blocking Execution**: I/O operations (network/disk) should never block the main execution thread.
-5. **System Scalability**: Use caching and indexing to prevent quadratic O(n²) bottlenecks under heavy loads.
+5. **System Scalability**: Use caching and indexing to prevent quadratic O(nÂ²) bottlenecks under heavy loads.
 
 ---
 
 ### 2. Must-Know Viva Definitions:
-- **ACID**: Atomicity, Consistency, Isolation, Durability — the 4 pillars of reliable database transactions.
+- **ACID**: Atomicity, Consistency, Isolation, Durability â€” the 4 pillars of reliable database transactions.
 - **Normalization**: The systematic process of structuring relational tables to eliminate redundancy without losing information.
 - **Deadlock**: A condition where a set of processes are blocked because each is holding a resource and waiting for another.
 
 ---
 
 ### 3. Exam Writing Tips:
-- ✅ Always draw a neat labeled block diagram before writing 10-mark answers.
-- ✅ Include Big-O time and space complexity whenever explaining an algorithm.
-- ✅ Write real-world analogies (e.g. banking, ticket booking) to score full marks!`;
+- âœ… Always draw a neat labeled block diagram before writing 10-mark answers.
+- âœ… Include Big-O time and space complexity whenever explaining an algorithm.
+- âœ… Write real-world analogies (e.g. banking, ticket booking) to score full marks!`;
 };
 
 /**
@@ -371,7 +381,7 @@ const generateCareerGuidance = async (interests, skills, education, goals) => {
 
   if (client) {
     try {
-      const model = client.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = client.getGenerativeModel({ model: 'gemini-3.8-flash' });
       const prompt = `You are a senior tech placement coordinator for B.Tech engineering students.
 Analyze this profile:
 - Interests: ${interests}
@@ -387,11 +397,11 @@ Provide practical placement advice:
       const result = await model.generateContent(prompt);
       return (await result.response).text();
     } catch (e) {
-      console.warn('⚠️ Gemini career fallback triggered:', e.message);
+      console.warn('âš ï¸ Gemini career fallback triggered:', e.message);
     }
   }
 
-  return `### 🚀 B.Tech Campus Placement & Career Blueprint
+  return `### ðŸš€ B.Tech Campus Placement & Career Blueprint
 
 **Student Profile:**
 - **Degree:** ${education || 'B.Tech in Computer Science / Information Technology'}
@@ -402,19 +412,19 @@ Provide practical placement advice:
 ---
 
 ### 1. Top Recommended Placement Roles:
-1. **Software Development Engineer (SDE-1)** (₹8 - 22 LPA)
+1. **Software Development Engineer (SDE-1)** (â‚¹8 - 22 LPA)
    - *Requirements*: Strong DSA problem-solving (Arrays, Trees, DP) + 1 solid full-stack project + DBMS/OS core concepts.
-2. **Full-Stack Web Developer** (₹6 - 16 LPA)
+2. **Full-Stack Web Developer** (â‚¹6 - 16 LPA)
    - *Requirements*: React, Node.js, Express, MySQL/PostgreSQL, REST APIs, Git & Deployment on cloud.
-3. **Backend / API Engineer** (₹7 - 18 LPA)
+3. **Backend / API Engineer** (â‚¹7 - 18 LPA)
    - *Requirements*: Relational database indexing, caching (Redis), system design basics, authentication (JWT).
 
 ---
 
 ### 2. Immediate Skill Gaps to Bridge:
-- 🎯 **DSA Practice**: Solve 150-200 curated questions on LeetCode (focus on Two Pointers, Sliding Window, DFS/BFS, Binary Trees).
-- 🎯 **Core CS Subjects**: Master ACID properties, SQL Joins, Deadlocks, Paging, and TCP vs UDP for technical interview rounds.
-- 🎯 **Live Deployment**: Make sure your project has a live working link on GitHub/Vercel rather than just running on localhost.
+- ðŸŽ¯ **DSA Practice**: Solve 150-200 curated questions on LeetCode (focus on Two Pointers, Sliding Window, DFS/BFS, Binary Trees).
+- ðŸŽ¯ **Core CS Subjects**: Master ACID properties, SQL Joins, Deadlocks, Paging, and TCP vs UDP for technical interview rounds.
+- ðŸŽ¯ **Live Deployment**: Make sure your project has a live working link on GitHub/Vercel rather than just running on localhost.
 
 ---
 
@@ -432,7 +442,7 @@ const evaluateInterviewAnswer = async (jobRole, question, userAnswer) => {
 
   if (client) {
     try {
-      const model = client.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = client.getGenerativeModel({ model: 'gemini-3.8-flash' });
       const prompt = `You are a senior tech interviewer evaluating a B.Tech student for the role: "${jobRole}".
 Question: "${question}"
 Student's Answer: "${userAnswer}"
@@ -450,7 +460,7 @@ Evaluate fairly like a real interviewer. Return JSON:
       const cleaned = text.replace(/^```json\s*/, '').replace(/^```\s*/, '').replace(/```$/, '').trim();
       return JSON.parse(cleaned);
     } catch (e) {
-      console.warn('⚠️ Gemini interview evaluation fallback triggered:', e.message);
+      console.warn('âš ï¸ Gemini interview evaluation fallback triggered:', e.message);
     }
   }
 
@@ -480,3 +490,5 @@ module.exports = {
   generateCareerGuidance,
   evaluateInterviewAnswer
 };
+
+
