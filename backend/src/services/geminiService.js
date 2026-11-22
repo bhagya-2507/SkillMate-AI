@@ -17,157 +17,56 @@ const getGeminiClient = () => {
 const chatWithAI = async (conversationHistory, userMessage) => {
   const client = getGeminiClient();
 
-  if (client) {
-    try {
-      const model = client.getGenerativeModel({ model: 'gemini-3.8-flash' });
-      const prompt = `You are SkillMate AI, a friendly, supportive college senior and tutor helping B.Tech students (CSE/IT/ECE).
-Explain engineering and programming concepts in simple, clear, relatable language with real-world analogies (like GPay/bank for ACID, Chrome tabs for threads, book index for B+ Trees).
-Use clean bullet points and short code snippets where helpful.
-Avoid overly stiff, robotic AI jargon. Sound like a helpful senior explaining a concept before semester exams or placement interviews.
+  if (!client) {
+    return "I'm temporarily unable to connect to the AI service. Please try again shortly.";
+  }
 
-IMPORTANT LANGUAGE RULES:
-- Always reply in the language requested by the student.
-- If the student says "talk in English", respond completely in English.
-- If the student says "talk in Hindi", respond in Hindi.
-- If the student uses Hinglish, respond naturally in Hinglish.
-- Follow explicit language preferences from the conversation history.
-- A newer language instruction overrides an older preference.
-- Never ignore a language change request.
-- Do not mix languages unless the student requests it.
+  try {
+    const model = client.getGenerativeModel({ model: 'gemini-3.8-flash' });
 
-Conversation History:
-${conversationHistory.map(m => `${m.sender}: ${m.message}`).join('\n')}
+    const history = Array.isArray(conversationHistory)
+      ? conversationHistory.slice(-12).map(m =>
+          `${m.sender || m.role || 'user'}: ${m.message || m.content || ''}`
+        ).join('\n')
+      : '';
 
-Student: ${userMessage}
-Tutor:`;
+    const prompt = `
+You are SkillMate AI, a friendly and intelligent conversational assistant.
+Help B.Tech students with academics, coding, placements and careers.
+Also answer everyday questions naturally. Never force every conversation into academics.
+Answer greetings and casual questions directly.
 
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      return response.text();
-    } catch (error) {
-      console.warn('âš ï¸ Gemini API chat call error or key missing:', error.message);
+LANGUAGE:
+- Follow the latest explicit language preference in conversation history.
+- Otherwise reply in the language of the latest user message.
+- English means complete English.
+- Hindi means Hindi.
+- Hinglish means natural Hinglish.
+- Do not unnecessarily mix languages.
+- Never repeat the welcome message unless asked.
+
+CONVERSATION HISTORY:
+${history}
+
+LATEST USER MESSAGE:
+${userMessage}
+
+Answer the latest message naturally and directly.
+`;
+
+    const result = await model.generateContent(prompt);
+    const answer = (await result.response).text();
+
+    if (!answer || !answer.trim()) {
+      throw new Error('Empty Gemini response');
     }
+
+    return answer.trim();
+  } catch (error) {
+    console.error('[SkillMate Gemini Error]:', error.message);
+    return "I'm having trouble connecting to my AI service right now. Please try again in a moment.";
   }
-
-  // Natural, student-friendly fallback responses for standard B.Tech topics
-  const msg = userMessage.toLowerCase();
-
-  if (msg.includes('acid') || msg.includes('transaction') || msg.includes('dbms')) {
-    return `### DBMS: ACID Properties Samjho Simple Bank Example Se ðŸ¦
-
-ACID properties ensure karti hain ki database mein transactions hamesha safe aur accurate rahein. Example: Aapne dost ko Google Pay se â‚¹500 transfer kiye.
-
-1. **A - Atomicity ("All or Nothing")**:
-   - Ya toh pura transaction complete hoga (aapke account se â‚¹500 kate aur dost ke account mein credit hue).
-   - Ya fir agar beech mein internet gaya, toh transaction fail ho jayega aur aapke paise wapas aa jayenge. Aadha-adhura transaction kabhi nahi hoga!
-
-2. **C - Consistency ("Rules Follow Honge")**:
-   - Transaction se pehle aur transaction ke baad database valid state mein rahega. Agar aapka balance â‚¹400 tha, toh â‚¹500 ka transfer allow nahi hoga. Total money system mein constant rahega.
-
-3. **I - Isolation ("No Interference")**:
-   - Agar aap do logon ko ek saath paise bhej rahe ho, toh dono transactions alag-alag execute honge jaise woh akele chal rahe hon. Koi data clash nahi hoga.
-
-4. **D - Durability ("Permanent Save")**:
-   - Ek baar "Transfer Successful" ka message aa gaya, toh chahe turant baad bank ka server crash ho jaye, aapka record safe rahega aur paise gayab nahi honge.
-
-ðŸ’¡ **Viva Tip:** Examiner puche toh hamesha bank balance ya ticket booking ka example dena, full marks milte hain!`;
-  }
-
-  if (msg.includes('process') || msg.includes('thread') || msg.includes('operating system') || msg.includes('os')) {
-    return `### OS: Process vs Thread Ka Real-World Difference ðŸ’»
-
-Yeh Operating Systems viva ka sabse favorite question hai!
-
-1. **Process (Heavyweight)**:
-   - Process ek running program hota hai.
-   - Example: Jab aap apne laptop mein **Google Chrome** open karte ho, toh woh ek process hai.
-   - Har process ko apni alag memory (RAM) milti hai. Ek process doosre process ki memory directly nahi chhu sakta.
-
-2. **Thread (Lightweight)**:
-   - Thread process ke andar ka ek chhota worker unit hota hai.
-   - Example: Chrome browser ke andar jo aapne **3 alag tabs** khole hain, ya ek tab mein video play ho raha hai aur dusre mein file download ho rahi hai â€” yeh sab threads hain!
-   - Sabhi threads apne parent process ki memory aapas mein share karte hain.
-
-| Feature | Process | Thread |
-|---|---|---|
-| Memory | Alag memory space milta hai | Same process ki memory share karte hain |
-| Creation Time | Slow hota hai (Heavy) | Fast hota hai (Light) |
-| Crash Effect | Ek process crash ho toh doosra safe rehta hai | Ek thread crash ho toh pura process ruk sakta hai |
-
-ðŸ’¡ **Exam Tip:** Remember: "A Process has one or more Threads."`;
-  }
-
-  if (msg.includes('dsa') || msg.includes('array') || msg.includes('stack') || msg.includes('queue') || msg.includes('linked list')) {
-    return `### DSA: Core Data Structures Ka Quick Revision âš¡
-
-College exams aur coding rounds ke liye inka funda clear rakhein:
-
-1. **Stack (LIFO - Last In, First Out)**:
-   - **Real Example**: Shaadi mein rakhi hui plates ka dher, ya browser ka **Back button**.
-   - Jo cheez sabse aakhiri mein dali (push), woh sabse pehle bahar aayegi (pop).
-   - Functions: \`push()\`, \`pop()\`, \`peek()\` â€” all in **O(1)** time.
-   - Exam use-case: Recursion stack, Undo operation, Balanced Parentheses check.
-
-2. **Queue (FIFO - First In, First Out)**:
-   - **Real Example**: Cinema hall ke ticket counter ki line.
-   - Jo pehle line mein khada hua, use pehle ticket milegi.
-   - Functions: \`enqueue()\` (line mein judna), \`dequeue()\` (line se nikalna) â€” in **O(1)**.
-   - Exam use-case: CPU job scheduling, Printer spooling, BFS graph traversal.
-
-3. **Array vs Linked List**:
-   - **Array**: Continuous memory location, instant access by index in \`O(1)\`, but fixed size.
-   - **Linked List**: Nodes aapas mein pointers se judi hoti hain, dynamic size, insertion fast hai par random search \`O(n)\` lagta hai.`;
-  }
-
-  if (msg.includes('tcp') || msg.includes('udp') || msg.includes('network') || msg.includes('cn')) {
-    return `### Computer Networks: TCP vs UDP (The Phone Call vs Letter) ðŸŒ
-
-1. **TCP (Transmission Control Protocol - Reliable)**:
-   - **Analogy**: Jaise aap kisi ko **phone call** karte hain. Pehle connection banta hai ("Hello, awaz aa rahi hai?"), fir baat hoti hai, aur aakhiri mein "bye" bolkar cut hota hai.
-   - **Features**: 3-Way Handshake (SYN, SYN-ACK, ACK), Zero packet loss (agar packet drop hua toh dobara bhejega), Ordered delivery.
-   - **Use-cases**: Web browsing (HTTP/HTTPS), File download (FTP), Emails (SMTP).
-
-2. **UDP (User Datagram Protocol - Fast & Lightweight)**:
-   - **Analogy**: Jaise post box mein **chitti daalna** ya YouTube/Cricket **Live Stream**. Agar beech mein 1 frame drop bhi ho gaya toh chalta hai, par delay nahi hona chahiye.
-   - **Features**: Connectionless, no handshake, fast speed, no re-transmission.
-   - **Use-cases**: Video calling (Zoom, Meet), Online multiplayer gaming, DNS lookup.`;
-  }
-
-  if (msg.includes('oops') || msg.includes('oop') || msg.includes('java') || msg.includes('c++')) {
-    return `### OOPs: 4 Pillars of Object Oriented Programming ðŸ›ï¸
-
-In chaaro pillars ko simple real-world examples se yaad rakhein:
-
-1. **Encapsulation (Data Hiding in a Capsule)**:
-   - Data (variables) aur methods ko ek class mein band karna aur sensitive cheezon ko \`private\` rakhna.
-   - **Example**: ATM machine. Aap direct cash vault mein haath nahi daal sakte, aap PIN aur buttons (public methods) ke through hi paise nikalte hain.
-
-2. **Abstraction (Only Show What Matters)**:
-   - Internal complex working chupana aur bahar sirf simple interface dikhana.
-   - **Example**: Car chalana. Aapko accelerator aur break pata hai, engine ke andar piston kaise ghoom raha hai woh janne ki zaroorat nahi hai.
-
-3. **Inheritance (Baap-Beta Features)**:
-   - Child class parent class ke properties aur functions ko reuse karti hai (\`extends\`).
-   - **Example**: \`Vehicle\` class ke features \`Car\` aur \`Bike\` dono mein automatically aa jate hain (Code Reusability).
-
-4. **Polymorphism (Many Forms)**:
-   - Ek hi method alag-alag situations mein alag behave karta hai.
-   - **Example**: Ek insaan office mein employee hai, ghar par beta hai, aur market mein customer hai. Same person, multiple behaviors (Method Overloading & Overriding).`;
-  }
-
-  // Friendly default
-  return `### Hello! Kahiye B.Tech ki padhai mein kya help chahiye? ðŸ“š
-
-Aap mujhse semester exams ya placement se related koi bhi topic puch sakte hain, jaise:
-- **DSA**: Array, Linked List, Stack, Binary Search, Trees
-- **DBMS**: SQL Joins, Normalization (1NF, 2NF, 3NF), ACID Properties
-- **Operating Systems**: CPU Scheduling, Deadlocks, Paging
-- **Computer Networks**: OSI 7 Layers, TCP vs UDP, IP Addressing
-- **OOPs**: Java / C++ ke 4 pillars with code examples
-
-Aap apna specific question ya doubt type kijiye, main bilkul step-by-step simple bhasha mein samjha dunga!`;
 };
-
 /**
  * 2. Smart Study Plan Generator - Realistic B.Tech Semester Plan
  */
@@ -490,5 +389,6 @@ module.exports = {
   generateCareerGuidance,
   evaluateInterviewAnswer
 };
+
 
 
