@@ -1,4 +1,4 @@
-const pptxgen = require('pptxgenjs');
+﻿const pptxgen = require('pptxgenjs');
 const path = require('path');
 
 const pptx = new pptxgen();
@@ -18,7 +18,7 @@ const WHITE = 'FFFFFF';
 const ORANGE = 'EA580C';
 
 // Helper for Slide Header
-const addSlideHeader = (slide, title, category = 'SKILLMATE AI — B.TECH MAJOR PROJECT') => {
+const addSlideHeader = (slide, title, category = 'SKILLMATE AI â€” B.TECH MAJOR PROJECT') => {
   // Top Category Pill / Bar
   slide.addShape(pptx.shapes.RECTANGLE, {
     x: 0.6,
@@ -284,11 +284,11 @@ const addSlideHeader = (slide, title, category = 'SKILLMATE AI — B.TECH MAJOR 
   const topics = [
     { num: '01', title: 'Motivation', desc: 'Challenges faced by engineering students in learning & placements' },
     { num: '02', title: 'Introduction', desc: 'SkillMate AI purpose, architecture & role-based design' },
-    { num: '03', title: 'Technologies Used', desc: 'React, Node.js, Express, MySQL, Sequelize & Gemini AI' },
+    { num: '03', title: 'Technologies Used', desc: 'React, Node.js, Express, MongoDB, Mongoose & Gemini AI' },
     { num: '04', title: 'Proposed Method', desc: 'Three-tier architecture, AI pipelines & RBAC security flow' },
     { num: '05', title: 'Key Features', desc: 'AI Assistant, Study Planner, Quiz Maker, Notes & Interview Prep' },
     { num: '06', title: 'Flow Diagram', desc: 'End-to-end client-server-database-AI execution workflow' },
-    { num: '07', title: 'Experimental Results', desc: 'Testing 15 relational tables, latency & fallback benchmark' },
+    { num: '07', title: 'Experimental Results', desc: 'Testing 15 MongoDB collections, latency & fallback benchmark' },
     { num: '08', title: 'Conclusion & Status', desc: 'Current project readiness & upcoming technological scope' },
     { num: '09', title: 'References', desc: 'Textbooks, documentation & academic research citations' }
   ];
@@ -444,9 +444,9 @@ const addSlideHeader = (slide, title, category = 'SKILLMATE AI — B.TECH MAJOR 
 
   slide.addText(
     'SkillMate AI is an enterprise-grade, full-stack educational and career assistance platform engineered specifically for engineering students.\n\n' +
-    'It acts as an intelligent companion bridging the gap between theoretical classroom coursework and technical industry readiness by combining Generative AI with a robust relational database.\n\n' +
+    'It acts as an intelligent companion bridging the gap between theoretical classroom coursework and technical industry readiness by combining Generative AI with a robust NoSQL document database.\n\n' +
     'Key Philosophy: "Learn with AI, Practice with Quizzes, Prepare for Placements, and Track Progress."\n\n' +
-    'Unlike generic chatbots, SkillMate AI enforces B.Tech semester syllabi, saves all historical data in MySQL, and provides institutional role-based oversight.',
+    'Unlike generic chatbots, SkillMate AI enforces B.Tech semester syllabi, saves all historical data in MongoDB, and provides institutional role-based oversight.',
     {
       x: 1.1,
       y: 2.25,
@@ -545,12 +545,12 @@ const addSlideHeader = (slide, title, category = 'SKILLMATE AI — B.TECH MAJOR 
       ]
     },
     {
-      layer: 'RELATIONAL DATABASE',
-      tech: 'MySQL 8.0 & Sequelize ORM',
+      layer: 'NoSQL document database',
+      tech: 'MongoDB Atlas & Mongoose',
       details: [
-        '15 fully normalized relational tables',
-        'Primary keys, Foreign keys, and CASCADE constraints',
-        'Sequelize ORM prevents SQL Injection attacks',
+        '15 fully normalized MongoDB collections',
+        'Primary keys, document references, and CASCADE constraints',
+        'Mongoose ODM prevents NoNoSQL Injection attacks',
         'Automated database seeding & synchronization scripts',
         'Connection pooling for high concurrent throughput'
       ]
@@ -613,7 +613,7 @@ const addSlideHeader = (slide, title, category = 'SKILLMATE AI — B.TECH MAJOR 
       align: 'center'
     });
 
-    const bullets = s.details.map(d => ({ text: `• ${d}\n`, options: { color: TEXT_DARK } }));
+    const bullets = s.details.map(d => ({ text: `â€¢ ${d}\n`, options: { color: TEXT_DARK } }));
     slide.addText(bullets, {
       x: x + 0.2,
       y: 2.7,
@@ -638,7 +638,7 @@ const addSlideHeader = (slide, title, category = 'SKILLMATE AI — B.TECH MAJOR 
     {
       num: 'METHOD 1',
       title: 'Three-Tier Modular Architecture',
-      desc: 'Strict decoupling of Presentation (React SPA), Business Logic (Express Controllers & Middleware), and Data Persistence (MySQL/Sequelize). This ensures high maintainability, independent scalability, and testability.'
+      desc: 'Strict decoupling of Presentation (React SPA), Business Logic (Express Controllers & Middleware), and Data Persistence (MongoDB/Mongoose). This ensures high maintainability, independent scalability, and testability.'
     },
     {
       num: 'METHOD 2',
@@ -795,7 +795,7 @@ const addSlideHeader = (slide, title, category = 'SKILLMATE AI — B.TECH MAJOR 
     { box: '2. AXIOS INTERCEPTOR', desc: 'Attaches JWT Bearer token into HTTP request Authorization header.' },
     { box: '3. EXPRESS REST API', desc: 'Applies CORS, Helmet security, rate limiter, and route controllers.' },
     { box: '4. AUTH & RBAC CHECK', desc: 'Verifies token validity and verifies role permissions (Student/Mentor/Admin).' },
-    { box: '5. SEQUELIZE ORM & MYSQL', desc: 'Executes parameterized queries across 15 relational tables.' },
+    { box: '5. Mongoose ODM & MongoDB', desc: 'Executes parameterized queries across 15 MongoDB collections.' },
     { box: '6. GEMINI AI ENGINE', desc: 'Backend calls Gemini 1.5 Flash SDK with academic prompts (or fallback).' },
     { box: '7. JSON CLIENT RESPONSE', desc: 'Returns sanitized JSON payload; React updates state and re-renders UI.' }
   ];
@@ -865,7 +865,7 @@ const addSlideHeader = (slide, title, category = 'SKILLMATE AI — B.TECH MAJOR 
   addSlideHeader(slide, 'Experimental Results', 'SYSTEM VALIDATION & METRICS');
 
   const metrics = [
-    { title: '15 Relational Tables Synced', val: '100% Pass', desc: 'Users, chats, study plans, quizzes, questions, notes, and feedback models synchronized on MySQL 8.0.' },
+    { title: '15 MongoDB collections Synced', val: '100% Pass', desc: 'Users, chats, study plans, quizzes, questions, notes, and feedback models synchronized on MongoDB Atlas.' },
     { title: 'AI Response Generation Latency', val: '~850 ms', desc: 'Average end-to-end response time for conversational queries and 5-question MCQ generation.' },
     { title: 'Stateless Authentication Security', val: '24h Expiry', desc: 'JWT tokens securely sign User ID and Role payload; passwords hashed with 10 bcrypt salt rounds.' },
     { title: 'System Uptime & Fallback Resilience', val: '0% Crash Rate', desc: 'Graceful academic fallback guarantees uninterrupted quiz taking even during network outage.' }
@@ -951,10 +951,10 @@ const addSlideHeader = (slide, title, category = 'SKILLMATE AI — B.TECH MAJOR 
   });
 
   slide.addText(
-    '1. Working Full-Stack System: Complete React frontend, Express REST backend, and live MySQL database fully integrated.\n\n' +
+    '1. Working Full-Stack System: Complete React frontend, Express REST backend, and live MongoDB database fully integrated.\n\n' +
     '2. Three Complete Dashboards: Verified role separation between Students, Faculty Mentors, and College Administrators.\n\n' +
     '3. Generative AI Pipelines: Functional AI tutor, study planner, quiz generator, notes summarizer, and placement mock interviewer.\n\n' +
-    '4. Production Security: 100% bcrypt password protection, JWT session management, and SQL injection prevention via Sequelize ORM.',
+    '4. Production Security: 100% bcrypt password protection, JWT session management, and NoNoSQL Injection prevention via Mongoose ODM.',
     {
       x: 1.1,
       y: 2.35,
@@ -1065,7 +1065,7 @@ const addSlideHeader = (slide, title, category = 'SKILLMATE AI — B.TECH MAJOR 
       bold: true
     });
 
-    slide.addText(r.title + ' — ' + r.desc, {
+    slide.addText(r.title + ' â€” ' + r.desc, {
       x: 1.1,
       y: y + 0.38,
       w: 11.0,
@@ -1084,3 +1084,5 @@ pptx.writeFile({ fileName: outputPath }).then(() => {
 }).catch(err => {
   console.error('Error generating PPTX:', err);
 });
+
+

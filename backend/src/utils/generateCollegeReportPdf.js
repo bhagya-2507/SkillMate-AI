@@ -1,4 +1,4 @@
-const fs = require('fs');
+﻿const fs = require('fs');
 const PDFDocument = require('pdfkit');
 
 const outputPath = 'C:\\Users\\acer\\Desktop\\SkillMate_AI_College_Project_Report.pdf';
@@ -100,7 +100,7 @@ const toc = [
 ];
 
 toc.forEach(([item, page]) => {
-  doc.fillColor(TEXT_DARK).fontSize(10.5).font('Helvetica-Bold').text(`•  ${item}`);
+  doc.fillColor(TEXT_DARK).fontSize(10.5).font('Helvetica-Bold').text(`â€¢  ${item}`);
   doc.fillColor(MUTED).fontSize(10.5).font('Helvetica').text(page, 480, doc.y - 13, { align: 'right', width: 50 });
   doc.moveDown(0.4);
 });
@@ -142,10 +142,10 @@ doc.moveDown(2);
 
 doc.fillColor(TEXT_DARK).fontSize(10.5).font('Helvetica').text(
   'SkillMate AI is an enterprise-grade full-stack web application designed to serve as an intelligent, all-in-one academic mentor and career accelerator for college engineering students.\n\n' +
-  'The application integrates modern Generative AI (Google Gemini 1.5 Flash SDK) with a scalable relational database architecture (MySQL 8.0 & Sequelize ORM) and a dynamic reactive user interface built using React.js 19 and Vite.\n\n' +
+  'The application integrates modern Generative AI (Google Gemini 1.5 Flash SDK) with a scalable NoSQL document database architecture (MongoDB Atlas & Mongoose) and a dynamic reactive user interface built using React.js 19 and Vite.\n\n' +
   'Key functional modules include a 24/7 Context-Aware AI Learning Assistant for B.Tech core subjects (DSA, DBMS, OS, Computer Networks), a Smart Study Planner providing milestone-based 5-day exam timetables, an automated AI Quiz Generator with instantaneous scoring and answer rationales, a PDF/TXT Notes Summarizer for lecture materials, and an SDE-1 placement Mock Interview simulator providing automated evaluation.\n\n' +
   'Furthermore, SkillMate AI enforces strict Role-Based Access Control (RBAC) across three distinct college user roles: Students, Faculty Mentors, and Institutional Administrators. Mentors can track student study completion and publish academic resources, while Administrators manage user permissions and export platform-wide CSV audit analytics.\n\n' +
-  'This project demonstrates the effective synergy of modern web engineering, secure RESTful micro-architectures, relational database normalization, and state-of-the-art Large Language Models to solve real-world educational challenges.',
+  'This project demonstrates the effective synergy of modern web engineering, secure RESTful micro-architectures, NoSQL document database normalization, and state-of-the-art Large Language Models to solve real-world educational challenges.',
   { align: 'justify', lineGap: 7 }
 );
 
@@ -163,7 +163,7 @@ doc.moveDown(2);
 doc.fillColor(TEXT_DARK).fontSize(10.5).font('Helvetica').text(
   'In the contemporary engineering education landscape, students face an increasingly rigorous curriculum spanning complex theoretical concepts, algorithmic problem solving, and demanding semester schedules. In subjects such as Data Structures & Algorithms (DSA), Database Management Systems (DBMS), Operating Systems (OS), and Computer Networks, students often struggle to obtain timely, 24/7 personalized academic support outside traditional classroom hours.\n\n' +
   'Furthermore, with high student-to-faculty ratios in engineering institutions, professors have limited bandwidth to provide continuous 1-on-1 assistance for every student doubt. Before university examinations, students encounter massive information overload, attempting to review hundreds of pages of lecture slides and textbooks without structured milestone planning. Additionally, there exists a significant gap between theoretical university syllabi and the technical expectations of industry campus placements (e.g., SDE-1 coding rounds and technical interviews).\n\n' +
-  'To resolve these widespread challenges, SkillMate AI has been designed and implemented. SkillMate AI is a comprehensive, full-stack educational and career assistance platform that combines the reasoning capabilities of Google Gemini Generative AI with a robust relational database (MySQL 8.0) and a high-performance React.js frontend.\n\n' +
+  'To resolve these widespread challenges, SkillMate AI has been designed and implemented. SkillMate AI is a comprehensive, full-stack educational and career assistance platform that combines the reasoning capabilities of Google Gemini Generative AI with a robust NoSQL document database (MongoDB Atlas) and a high-performance React.js frontend.\n\n' +
   'The platform provides engineering students with an intelligent conversational tutor, automated exam schedule generation, multiple-choice testing with instant grading, academic PDF summarization, and mock technical placement evaluations. By supporting role-based access for Students, Mentors, and Administrators, SkillMate AI establishes a connected academic ecosystem for modern universities.',
   { align: 'justify', lineGap: 6.5 }
 );
@@ -187,11 +187,11 @@ const objectives = [
   'To implement a secure Document Summarizer capable of extracting text from PDF/TXT lecture notes up to 10MB and generating concise revision sheets and formulas.',
   'To create an interactive Technical Interview Simulator that presents role-based SDE-1 placement questions and evaluates student answers with score ratings (0-100).',
   'To enforce strict Role-Based Access Control (RBAC) across three portals (Student, Mentor, and Administrator) with JWT authentication and bcrypt password security.',
-  'To establish persistent data tracking using MySQL 8.0 and Sequelize ORM across 15 normalized relational tables with Foreign Keys and cascading integrity.'
+  'To establish persistent data tracking using MongoDB Atlas and Mongoose ODM across 15 normalized MongoDB collections with document references and cascading integrity.'
 ];
 
 objectives.forEach((obj, idx) => {
-  doc.fillColor(NAVY).fontSize(10.5).font('Helvetica-Bold').text(`•  Objective ${idx + 1}:`);
+  doc.fillColor(NAVY).fontSize(10.5).font('Helvetica-Bold').text(`â€¢  Objective ${idx + 1}:`);
   doc.fillColor(TEXT_DARK).fontSize(10).font('Helvetica').text(`    ${obj}`, { lineGap: 4 });
   doc.moveDown(0.6);
 });
@@ -210,7 +210,7 @@ doc.moveDown(1.5);
 doc.fillColor(TEXT_DARK).fontSize(10).font('Helvetica').text(
   'Existing educational platforms such as Coursera, Udemy, and LeetCode provide valuable course videos and competitive programming problems; however, they lack personalized, context-aware 24/7 tutoring tailored to college semester syllabi.\n\n' +
   'Recent academic studies demonstrate that combining automated self-assessment (quizzes) with structured milestone planning significantly enhances long-term retention and reduces student exam anxiety. Furthermore, the integration of Large Language Models (LLMs) into computer science pedagogy has shown remarkable improvements in conceptual understanding when explanations employ intuitive real-world analogies.\n\n' +
-  'Most existing educational tools either operate as static content repositories or rely on proprietary cloud databases without role-based institutional faculty integration. SkillMate AI addresses this void by offering an open, relational, three-tier architecture powered by Google Gemini and MySQL.',
+  'Most existing educational tools either operate as static content repositories or rely on proprietary cloud databases without role-based institutional faculty integration. SkillMate AI addresses this void by offering an open, relational, three-tier architecture powered by Google Gemini and MongoDB.',
   { align: 'justify', lineGap: 5 }
 );
 
@@ -250,7 +250,7 @@ doc.fillColor(TEXT_DARK).fontSize(10).font('Helvetica').text(
   'The SkillMate AI system is architected around a classic Three-Tier Modular Architecture:\n' +
   '1. User Interface Layer (React.js SPA): Provides responsive student, mentor, and admin dashboards, interactive forms, and SVG progress visualizations.\n' +
   '2. Application Logic Layer (Node.js & Express.js): Manages API routing, JWT authentication, role verification, PDF parsing, and Gemini AI prompt pipelining.\n' +
-  '3. Data Persistence Layer (MySQL 8.0 & Sequelize ORM): Manages 15 relational tables ensuring data integrity, parameterized queries, and ACID transaction safety.',
+  '3. Data Persistence Layer (MongoDB Atlas & Mongoose): Manages 15 MongoDB collections ensuring data integrity, parameterized queries, and ACID transaction safety.',
   { align: 'justify', lineGap: 5 }
 );
 
@@ -259,7 +259,7 @@ doc.fillColor(NAVY).fontSize(12).font('Helvetica-Bold').text('Main Functional Mo
 doc.moveDown(0.5);
 
 const modules = [
-  ['AI Learning Assistant', 'Multi-turn conversational tutor explaining B.Tech topics with real-world analogies; persists chat history in MySQL.'],
+  ['AI Learning Assistant', 'Multi-turn conversational tutor explaining B.Tech topics with real-world analogies; persists chat history in MongoDB.'],
   ['Smart Study Planner', 'Generates 5-day structured preparation schedules; tracks task completion percentages in real-time.'],
   ['AI Quiz Generator', 'Creates B.Tech curriculum MCQs across 3 difficulty levels with instant automated scoring and explanations.'],
   ['Notes Summarizer', 'Parses uploaded PDF and TXT lecture notes up to 10MB; extracts key concepts, formulas, and revision points.'],
@@ -295,7 +295,7 @@ const devTable = [
   ['Data Visualization', 'Recharts (Dynamic SVG charts) & canvas-confetti'],
   ['Backend Runtime', 'Node.js (v24.18.0) & Express.js REST Framework'],
   ['Authentication & Security', 'Stateless JWT (jsonwebtoken) & bcryptjs (10 salt rounds)'],
-  ['Database & ORM', 'MySQL 8.0 & Sequelize ORM (15 relational models)'],
+  ['Database & ORM', 'MongoDB Atlas & Mongoose (15 relational models)'],
   ['AI & NLP Engine', 'Google Gemini 1.5 Flash SDK (@google/generative-ai)'],
   ['File Processing', 'Multer (multipart upload) & pdf-parse (text extraction)']
 ];
@@ -313,11 +313,11 @@ doc.moveDown(1.5);
 doc.fillColor(NAVY).fontSize(12).font('Helvetica-Bold').text('Rationale for Technology Selection:');
 doc.moveDown(0.5);
 doc.fillColor(TEXT_DARK).fontSize(10).font('Helvetica').text(
-  '• React.js with Vite ensures sub-second Hot Module Replacement (HMR) and lightweight production bundles.\n' +
-  '• Node.js non-blocking event-driven I/O guarantees high concurrency when processing AI responses.\n' +
-  '• MySQL 8.0 and Sequelize ORM provide strong ACID transactions and eliminate SQL Injection risks.\n' +
-  '• Official Google Gemini SDK handles generative reasoning efficiently with built-in token optimization.\n' +
-  '• bcryptjs ensures passwords cannot be reverse-engineered even in the event of database exfiltration.',
+  'â€¢ React.js with Vite ensures sub-second Hot Module Replacement (HMR) and lightweight production bundles.\n' +
+  'â€¢ Node.js non-blocking event-driven I/O guarantees high concurrency when processing AI responses.\n' +
+  'â€¢ MongoDB Atlas and Mongoose ODM provide strong document-level atomic operations and eliminate NoNoSQL Injection risks.\n' +
+  'â€¢ Official Google Gemini SDK handles generative reasoning efficiently with built-in token optimization.\n' +
+  'â€¢ bcryptjs ensures passwords cannot be reverse-engineered even in the event of database exfiltration.',
   { lineGap: 6 }
 );
 
@@ -337,7 +337,7 @@ doc.fillColor(TEXT_DARK).fontSize(10.5).font('Helvetica').text(
   '1. User Authentication & Session Establishment: User logs in via /login. The server validates bcrypt hash, issues a signed JWT token, and redirects the client based on role (Student/Mentor/Admin).\n\n' +
   '2. Student Academic Interaction: Student accesses the AI Learning Assistant or Study Planner. Input parameters (subject, topic, target exam date) are validated by express-validator.\n\n' +
   '3. Backend AI Orchestration: Express controllers attach engineering context prompts and dispatch asynchronous requests to Google Gemini 1.5 Flash SDK (with offline fallback contingency).\n\n' +
-  '4. Relational Persistence: Study plans, individual task milestones, quiz attempts, and chat messages are persisted into MySQL tables with foreign key cascades.\n\n' +
+  '4. Relational Persistence: Study plans, individual task milestones, quiz attempts, and chat messages are persisted into MongoDB tables with foreign key cascades.\n\n' +
   '5. Assessment & Evaluation Loop: Quizzes are evaluated in real-time, computing scores and explanations. Interview answers are rated on a 0-100 scale with model answers returned.\n\n' +
   '6. Institutional Feedback & Monitoring: Faculty mentors inspect assigned student metrics and issue guidance notes. Admins export unified CSV audit reports for academic tracking.',
   { align: 'justify', lineGap: 7 }
@@ -363,7 +363,7 @@ const flowchartSteps = [
   'Express REST API Server: Rate Limiting -> Helmet -> CORS Validation',
   'Backend Auth Middleware: verifyToken() -> authorize([ROLE])',
   'Controller Layer: Executes Business Logic & Validates Payloads',
-  'Sequelize ORM <--> MySQL DB: Executes Parameterized Queries (15 Tables)',
+  'Mongoose ODM <--> MongoDB DB: Executes Parameterized Queries (15 Tables)',
   'Gemini AI SDK: Generates Academic Content / Fallback Dataset if Offline',
   'JSON Response: Client State Updates & Reactive Recharts UI Render',
   'END: Continuous Student Learning & Institutional Progress Saved'
@@ -395,9 +395,9 @@ doc.fillColor(TEXT_DARK).fontSize(10.5).font('Helvetica').text(
   'SkillMate AI specifies strict functional and non-functional requirements to ensure reliability, security, and academic efficacy:\n\n' +
   '1. Dual-Layer Role Authorization: The system must enforce absolute isolation between Student, Mentor, and Administrator roles. Under no circumstances should students access administrative endpoints.\n\n' +
   '2. Zero Frontend API Key Exposure: All Google Gemini API keys must reside strictly within backend environment variables (.env). Frontend source code must never bundle sensitive credentials.\n\n' +
-  '3. Automated Scoring & Assessment: Quizzes must generate 4 multiple-choice options per question, automatically calculate percentage scores, record timestamped attempts in MySQL, and display answer explanations.\n\n' +
+  '3. Automated Scoring & Assessment: Quizzes must generate 4 multiple-choice options per question, automatically calculate percentage scores, record timestamped attempts in MongoDB, and display answer explanations.\n\n' +
   '4. Multipart Document Parsing: The Notes Summarizer must validate file MIME types (PDF, text/plain) and limit file sizes to 10MB, gracefully rejecting corrupted or unreadable documents.\n\n' +
-  '5. Persistent Chat Context: The AI Learning Assistant must preserve multi-turn academic dialogues in MySQL and allow users to clear conversations with confirmation dialogues.\n\n' +
+  '5. Persistent Chat Context: The AI Learning Assistant must preserve multi-turn academic dialogues in MongoDB and allow users to clear conversations with confirmation dialogues.\n\n' +
   '6. Graceful Fault Tolerance: In the event of network disruption or API quota depletion, the system must engage a local engineering knowledge base rather than crashing.',
   { align: 'justify', lineGap: 7 }
 );
@@ -415,18 +415,18 @@ doc.moveDown(1.5);
 
 doc.fillColor(TEXT_DARK).fontSize(10.5).font('Helvetica').text(
   'To properly configure the development and runtime environment for SkillMate AI, the following hardware and software prerequisites are established:\n\n' +
-  '• Hardware Requirements:\n' +
+  'â€¢ Hardware Requirements:\n' +
   '   - Processor: Intel Core i3 / AMD Ryzen 3 or higher (2.0 GHz+)\n' +
   '   - RAM: Minimum 4 GB (8 GB recommended for optimal development)\n' +
   '   - Storage: 500 MB free disk space for node_modules and database files\n' +
   '   - Network: Standard broadband connection for Gemini AI API calls\n\n' +
-  '• Software Environment Configuration:\n' +
+  'â€¢ Software Environment Configuration:\n' +
   '   - Operating System: Windows 10/11, macOS, or Linux (Ubuntu 20.04+)\n' +
   '   - Runtime Environment: Node.js (v18.0.0 or higher; tested on Node v24.18.0)\n' +
   '   - Package Manager: npm (v10.0+; tested on v11.16.0)\n' +
-  '   - Database Engine: MySQL Server 8.0 (configured with utf8mb4 collation on port 3306)\n' +
+  '   - Database Engine: MongoDB Server 8.0 (configured with utf8mb4 collation on port 3306)\n' +
   '   - Web Browser: Google Chrome, Microsoft Edge, or Mozilla Firefox\n\n' +
-  '• Environment Variables Configuration (.env):\n' +
+  'â€¢ Environment Variables Configuration (.env):\n' +
   '   - PORT=5000\n' +
   '   - DB_HOST=localhost, DB_USER=root, DB_PASSWORD=your_password, DB_NAME=skillmate_ai\n' +
   '   - JWT_SECRET=supersecret_jwt_key_2026, JWT_EXPIRES_IN=24h\n' +
@@ -448,7 +448,7 @@ doc.moveDown(1.5);
 doc.fillColor(TEXT_DARK).fontSize(10.5).font('Helvetica').text(
   'The methodology employed for SkillMate AI follows an Agile Iterative Development Lifecycle combined with Domain-Driven Design principles:\n\n' +
   '1. Requirement Analysis & Curriculum Mapping: Standard university B.Tech syllabi (AKTU/AICTE) for CSE/IT subjects were analyzed to define core subjects (DSA, DBMS, OS, Networks, OOPs) and campus placement milestones.\n\n' +
-  '2. Relational Database Modeling: An Entity-Relationship diagram was formulated, resulting in 15 normalized tables (users, chats, study_plans, quizzes, questions, notes, mentor_feedbacks). Cascading delete triggers and indexed foreign keys were implemented via Sequelize.\n\n' +
+  '2. NoSQL document database Modeling: An Entity-Relationship diagram was formulated, resulting in 15 normalized tables (users, chats, study_plans, quizzes, questions, notes, mentor_feedbacks). Cascading delete triggers and indexed document references were implemented via Mongoose.\n\n' +
   '3. RESTful API Development: Express router endpoints were built with dual validation: frontend user feedback and backend express-validator sanitization. JWT stateless tokens ensure fast authenticated throughput.\n\n' +
   '4. Generative AI Prompt Engineering: System prompts were crafted with college academic personas and real-world analogies (e.g., bank transfer for ACID, ATM for encapsulation). A local dataset fallback handler was engineered to guarantee system resilience.\n\n' +
   '5. UI/UX Component Engineering: Modular React components were designed with responsive CSS3, Lucide icons, and Recharts, providing intuitive, professional dashboards for Students, Mentors, and Admins.',
@@ -472,7 +472,7 @@ doc.moveDown(0.3);
 const serverCode = `const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const { sequelize } = require('./models');
+const { Mongoose } = require('./models');
 const routes = require('./routes');
 const errorHandler = require('./middleware/errorHandler');
 
@@ -484,7 +484,7 @@ app.use('/api', routes);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-sequelize.sync().then(() => {
+Mongoose.sync().then(() => {
   app.listen(PORT, () => console.log('SkillMate AI Backend running on port ' + PORT));
 });`;
 
@@ -529,7 +529,7 @@ doc.moveDown(1.5);
 const snapshots = [
   ['Snapshot 1: Landing Page (Hero & Feature Overview)', 'Features modern SaaS hero banner, value proposition, B.Tech curriculum previews, testimonials, and 1-click demo login gateways.'],
   ['Snapshot 2: Student Dashboard (Overview & Analytics)', 'Visualizes live study streak (days), completed quizzes, total hours, upcoming tasks, and weekly activity volume bar charts.'],
-  ['Snapshot 3: AI Learning Assistant (Interactive Tutor)', 'Conversational chat interface with quick B.Tech preset prompts (ACID, Deadlocks, OSI Layers), markdown rendering, and MySQL history.'],
+  ['Snapshot 3: AI Learning Assistant (Interactive Tutor)', 'Conversational chat interface with quick B.Tech preset prompts (ACID, Deadlocks, OSI Layers), markdown rendering, and MongoDB history.'],
   ['Snapshot 4: Smart Study Planner (5-Day Schedules)', 'Day-wise milestone schedule generator with interactive task checkboxes, progress bar percentage, and target date reminders.'],
   ['Snapshot 5: AI Quiz Generator & Assessment', 'Customizable MCQ generator with instant scoring, real-time confetti celebration for >=80% scores, and question explanations.'],
   ['Snapshot 6: Mentor & Admin Portals', 'Faculty student progress monitoring, resource publishing, 1-on-1 feedback, and 1-click platform-wide CSV audit report exports.']
@@ -563,7 +563,7 @@ const futurePoints = [
 ];
 
 futurePoints.forEach(([title, desc]) => {
-  doc.fillColor(NAVY).fontSize(10.5).font('Helvetica-Bold').text(`•  ${title}`);
+  doc.fillColor(NAVY).fontSize(10.5).font('Helvetica-Bold').text(`â€¢  ${title}`);
   doc.fillColor(TEXT_DARK).fontSize(9.5).font('Helvetica').text(`    ${desc}`, { lineGap: 3 });
   doc.moveDown(0.7);
 });
@@ -580,11 +580,11 @@ doc.fillColor(NAVY).fontSize(20).font('Helvetica-Bold').text('CONCLUSION', { ali
 doc.moveDown(1.5);
 
 doc.fillColor(TEXT_DARK).fontSize(10.5).font('Helvetica').text(
-  '• SkillMate AI successfully demonstrates the practical convergence of modern full-stack web engineering, relational database design, and Large Language Models to deliver an impactful academic solution.\n\n' +
-  '• The application eliminates the friction of traditional exam preparation by automatically converting voluminous B.Tech curricula into structured 5-day milestones, instant quizzes, and concise revision notes.\n\n' +
-  '• By maintaining complete architectural decoupling between the React frontend, Express REST APIs, MySQL 8.0, and Google Gemini SDK, the platform achieves high reliability, sub-second response latency, and zero system crashes.\n\n' +
-  '• The implementation of strict Role-Based Access Control bridges the communication gap between college students, teaching mentors, and university administrators, providing real-time visibility into academic performance.\n\n' +
-  '• Overall, the project fulfills all primary research objectives, providing engineering colleges with a scalable, production-ready AI companion that elevates student learning and placement readiness.',
+  'â€¢ SkillMate AI successfully demonstrates the practical convergence of modern full-stack web engineering, NoSQL document database design, and Large Language Models to deliver an impactful academic solution.\n\n' +
+  'â€¢ The application eliminates the friction of traditional exam preparation by automatically converting voluminous B.Tech curricula into structured 5-day milestones, instant quizzes, and concise revision notes.\n\n' +
+  'â€¢ By maintaining complete architectural decoupling between the React frontend, Express REST APIs, MongoDB Atlas, and Google Gemini SDK, the platform achieves high reliability, sub-second response latency, and zero system crashes.\n\n' +
+  'â€¢ The implementation of strict Role-Based Access Control bridges the communication gap between college students, teaching mentors, and university administrators, providing real-time visibility into academic performance.\n\n' +
+  'â€¢ Overall, the project fulfills all primary research objectives, providing engineering colleges with a scalable, production-ready AI companion that elevates student learning and placement readiness.',
   { align: 'justify', lineGap: 7 }
 );
 
@@ -600,17 +600,17 @@ doc.fillColor(NAVY).fontSize(20).font('Helvetica-Bold').text('BIBLIOGRAPHY', { a
 doc.moveDown(2);
 
 const bibList = [
-  '• Silberschatz, A., Korth, H. F., & Sudarshan, S. (2020). Database System Concepts (7th ed.). McGraw-Hill Education.',
-  '• Tanenbaum, A. S., & Bos, H. (2015). Modern Operating Systems (4th ed.). Pearson Education.',
-  '• Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2022). Introduction to Algorithms (4th ed.). MIT Press.',
-  '• Google DeepMind (2024). Gemini: A Family of Highly Capable Multimodal Models. https://ai.google.dev',
-  '• React Documentation & Core Web Guidelines (2025). https://react.dev',
-  '• Express.js REST Framework Documentation. https://expressjs.com',
-  '• Sequelize v6 ORM for Node.js. https://sequelize.org',
-  '• Mozilla Developer Network (MDN) Web Docs. https://developer.mozilla.org',
-  '• https://stackoverflow.com - Community Technical Discussions on JWT & Sequelize',
-  '• https://www.w3schools.com - Web Standards Reference',
-  '• https://www.youtube.com/@ProgrammingwithMosh - Full Stack Architecture Concepts'
+  'â€¢ Silberschatz, A., Korth, H. F., & Sudarshan, S. (2020). Database System Concepts (7th ed.). McGraw-Hill Education.',
+  'â€¢ Tanenbaum, A. S., & Bos, H. (2015). Modern Operating Systems (4th ed.). Pearson Education.',
+  'â€¢ Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2022). Introduction to Algorithms (4th ed.). MIT Press.',
+  'â€¢ Google DeepMind (2024). Gemini: A Family of Highly Capable Multimodal Models. https://ai.google.dev',
+  'â€¢ React Documentation & Core Web Guidelines (2025). https://react.dev',
+  'â€¢ Express.js REST Framework Documentation. https://expressjs.com',
+  'â€¢ Mongoose v6 ORM for Node.js. https://Mongoose.org',
+  'â€¢ Mozilla Developer Network (MDN) Web Docs. https://developer.mozilla.org',
+  'â€¢ https://stackoverflow.com - Community Technical Discussions on JWT & Mongoose',
+  'â€¢ https://www.w3schools.com - Web Standards Reference',
+  'â€¢ https://www.youtube.com/@ProgrammingwithMosh - Full Stack Architecture Concepts'
 ];
 
 bibList.forEach((bib) => {
@@ -627,3 +627,5 @@ doc.end();
 writeStream.on('finish', () => {
   console.log('COLLEGE_REPORT_PDF_GENERATED_SUCCESSFULLY');
 });
+
+

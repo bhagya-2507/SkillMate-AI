@@ -1,4 +1,4 @@
-const fs = require('fs');
+﻿const fs = require('fs');
 const path = require('path');
 const PDFDocument = require('pdfkit');
 
@@ -38,9 +38,9 @@ doc.fillColor('#1E293B').fontSize(10).font('Helvetica').text(
 doc.moveDown(0.3);
 doc.text(
   'Isme 3 Alag-Alag Role-Based Dashboards hain:\n' +
-  '• Student Dashboard: Padhai, AI quiz, notes summarize karna, roadmap aur mock interview.\n' +
-  '• Mentor Dashboard: Professors ke liye students ko track karna, study resources aur feedback dena.\n' +
-  '• Admin Dashboard: College management ke liye user access aur audit reports export karna.'
+  'â€¢ Student Dashboard: Padhai, AI quiz, notes summarize karna, roadmap aur mock interview.\n' +
+  'â€¢ Mentor Dashboard: Professors ke liye students ko track karna, study resources aur feedback dena.\n' +
+  'â€¢ Admin Dashboard: College management ke liye user access aur audit reports export karna.'
 );
 doc.moveDown(0.5);
 drawDivider();
@@ -58,7 +58,7 @@ const problems = [
 ];
 
 problems.forEach(([p, s]) => {
-  doc.fillColor('#DC2626').fontSize(9).font('Helvetica-Bold').text('• ' + p);
+  doc.fillColor('#DC2626').fontSize(9).font('Helvetica-Bold').text('â€¢ ' + p);
   doc.fillColor('#059669').fontSize(9).font('Helvetica').text('   ' + s);
   doc.moveDown(0.2);
 });
@@ -69,11 +69,11 @@ drawDivider();
 doc.fillColor('#4F46E5').fontSize(14).font('Helvetica-Bold').text('3. Complete Technology Stack (Viva Points)');
 doc.moveDown(0.3);
 doc.fillColor('#1E293B').fontSize(9.5).font('Helvetica').text(
-  '• Frontend (UI): React.js (Vite) + CSS3 Variables + Recharts (SVG Charts) + Lucide Icons.\n' +
-  '• Backend (APIs): Node.js + Express.js REST APIs with express-validator for robust schema checks.\n' +
-  '• Database (Storage): MySQL 8.0 with Sequelize ORM across 15 relational tables with Foreign Keys.\n' +
-  '• Security & Auth: JWT (JSON Web Tokens) for sessions + bcryptjs (10 salt rounds) for password hashing.\n' +
-  '• AI Engine: Official Google Gemini AI SDK (@google/generative-ai) integrated securely on backend.'
+  'â€¢ Frontend (UI): React.js (Vite) + CSS3 Variables + Recharts (SVG Charts) + Lucide Icons.\n' +
+  'â€¢ Backend (APIs): Node.js + Express.js REST APIs with express-validator for robust schema checks.\n' +
+  'â€¢ Database (Storage): MongoDB Atlas with Mongoose ODM across 15 MongoDB collections with document references.\n' +
+  'â€¢ Security & Auth: JWT (JSON Web Tokens) for sessions + bcryptjs (10 salt rounds) for password hashing.\n' +
+  'â€¢ AI Engine: Official Google Gemini AI SDK (@google/generative-ai) integrated securely on backend.'
 );
 doc.moveDown(0.6);
 
@@ -87,7 +87,7 @@ doc.moveDown(0.4);
 doc.fillColor('#0F172A').fontSize(11).font('Helvetica-Bold').text('A. Student Dashboard (Alex Johnson)');
 doc.fillColor('#334155').fontSize(9.5).font('Helvetica').text(
   '1. Overview: Active study streak (e.g. 4 Days), total learning hours, weekly activity graph.\n' +
-  '2. AI Learning Assistant: ChatGPT jaisa live AI tutor. Chat history MySQL mein persist rehti hai.\n' +
+  '2. AI Learning Assistant: ChatGPT jaisa live AI tutor. Chat history MongoDB mein persist rehti hai.\n' +
   '3. Smart Study Planner: Subject aur target date dalo, AI daily task milestones banata hai.\n' +
   '4. AI Quiz Generator: Topic aur difficulty ke hisab se MCQs. Instant score calculation aur explanations.\n' +
   '5. Notes Summarizer: PDF ya TXT notes upload karo (upto 10MB). AI summary aur revision checklist deta hai.\n' +
@@ -121,9 +121,9 @@ doc.fillColor('#4F46E5').fontSize(14).font('Helvetica-Bold').text('5. Pre-Config
 doc.moveDown(0.3);
 doc.fillColor('#1E293B').fontSize(9.5).font('Helvetica').text(
   'College viva demonstration ke liye login page (/login) par 1-Click Demo Buttons hain:\n' +
-  '• Student Account: student@skillmate.ai  |  Password: Student@123\n' +
-  '• Mentor Account:  mentor@skillmate.ai   |  Password: Mentor@123\n' +
-  '• Admin Account:   admin@skillmate.ai    |  Password: Admin@123'
+  'â€¢ Student Account: student@skillmate.ai  |  Password: Student@123\n' +
+  'â€¢ Mentor Account:  mentor@skillmate.ai   |  Password: Mentor@123\n' +
+  'â€¢ Admin Account:   admin@skillmate.ai    |  Password: Admin@123'
 );
 doc.moveDown(0.6);
 
@@ -137,7 +137,7 @@ doc.moveDown(0.4);
 const qnas = [
   {
     q: 'Q1: Database kahan hai aur kya use kiya hai?',
-    a: 'Ans: Humne local MySQL 8.0 database use kiya hai jiska naam skillmate_ai hai. Node.js backend mein Sequelize ORM use kiya hai jo SQL injection se bachata hai aur 15 relational tables mein Foreign Keys, Primary Keys aur Cascades handle karta hai.'
+    a: 'Ans: Humne local MongoDB Atlas database use kiya hai jiska naam skillmate_ai hai. Node.js backend mein Mongoose ODM use kiya hai jo NoNoSQL Injection se bachata hai aur 15 MongoDB collections mein document references, Primary Keys aur Cascades handle karta hai.'
   },
   {
     q: 'Q2: Passwords secure kaise hain?',
@@ -183,7 +183,7 @@ doc.fillColor('#1E293B').fontSize(9.5).font('Helvetica').text(
 
 doc.moveDown(1);
 doc.fillColor('#94A3B8').fontSize(8.5).font('Helvetica').text(
-  'SkillMate AI — Project Documentation & Viva Defense Guide. Created on Desktop for easy sharing.',
+  'SkillMate AI â€” Project Documentation & Viva Defense Guide. Created on Desktop for easy sharing.',
   { align: 'center' }
 );
 
@@ -193,3 +193,5 @@ doc.end();
 writeStream.on('finish', () => {
   console.log('PDF_GENERATED_SUCCESSFULLY');
 });
+
+

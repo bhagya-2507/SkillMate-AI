@@ -1,4 +1,4 @@
-const fs = require('fs');
+﻿const fs = require('fs');
 const PDFDocument = require('pdfkit');
 
 const outputPath = 'C:\\Users\\acer\\Desktop\\SkillMate_AI_Presentation_Slides.pdf';
@@ -106,7 +106,7 @@ doc.fillColor(TEXT_DARK).fontSize(10).font('Helvetica').text(
   'SkillMate AI is an enterprise-grade educational and career acceleration platform developed for B.Tech engineering students.\n\n' +
   'It bridges theoretical classroom concepts with real-world technical competency using Generative AI (Google Gemini 1.5 Flash).\n\n' +
   'Key Philosophy:\n"Learn with AI, Practice with Quizzes, Prepare for Placements, and Track Progress."\n\n' +
-  'All study plans, quiz scores, notes summaries, and chats are permanently stored in a relational MySQL database.',
+  'All study plans, quiz scores, notes summaries, and chats are permanently stored in a relational MongoDB database.',
   75, 150, { width: 310, lineGap: 6 }
 );
 
@@ -126,10 +126,10 @@ roles.forEach(([r, d, color], i) => {
 doc.addPage();
 addSlideHeader('Technologies Used', 'TECHNICAL STACK SPECIFICATION');
 const techList = [
-  ['FRONTEND DEVELOPMENT', 'React.js 19 (Vite)', '• React Router DOM v6\n• Recharts (SVG Graphs)\n• Axios HTTP Client with JWT\n• Lucide Icons & Responsive CSS3'],
-  ['BACKEND ARCHITECTURE', 'Node.js & Express.js', '• RESTful API Endpoints\n• JWT Stateless Sessions\n• bcryptjs (10 Salt Rounds)\n• Multer Multipart File Uploads\n• express-validator Pipeline'],
-  ['RELATIONAL DATABASE', 'MySQL 8.0 & Sequelize', '• 15 Relational Normalized Tables\n• Foreign Keys & Cascade Triggers\n• Sequelize ORM (No SQL Injection)\n• Connection Pooling & Seeders'],
-  ['AI & NLP ENGINE', 'Google Gemini 1.5 Flash', '• Official @google/generative-ai\n• 100% Backend Secure Isolation\n• B.Tech Syllabus Prompts\n• Zero-Downtime Academic Fallback\n• pdf-parse Stream Extraction']
+  ['FRONTEND DEVELOPMENT', 'React.js 19 (Vite)', 'â€¢ React Router DOM v6\nâ€¢ Recharts (SVG Graphs)\nâ€¢ Axios HTTP Client with JWT\nâ€¢ Lucide Icons & Responsive CSS3'],
+  ['BACKEND ARCHITECTURE', 'Node.js & Express.js', 'â€¢ RESTful API Endpoints\nâ€¢ JWT Stateless Sessions\nâ€¢ bcryptjs (10 Salt Rounds)\nâ€¢ Multer Multipart File Uploads\nâ€¢ express-validator Pipeline'],
+  ['NoSQL document database', 'MongoDB Atlas & Mongoose', 'â€¢ 15 Relational Normalized Tables\nâ€¢ document references & Cascade Triggers\nâ€¢ Mongoose ODM (No NoNoSQL Injection)\nâ€¢ Connection Pooling & Seeders'],
+  ['AI & NLP ENGINE', 'Google Gemini 1.5 Flash', 'â€¢ Official @google/generative-ai\nâ€¢ 100% Backend Secure Isolation\nâ€¢ B.Tech Syllabus Prompts\nâ€¢ Zero-Downtime Academic Fallback\nâ€¢ pdf-parse Stream Extraction']
 ];
 techList.forEach(([layer, tool, bullets], i) => {
   const x = 55 + i * 185;
@@ -144,7 +144,7 @@ techList.forEach(([layer, tool, bullets], i) => {
 doc.addPage();
 addSlideHeader('Proposed Method', 'SYSTEM ARCHITECTURE & METHODOLOGY');
 const methods = [
-  ['METHOD 1: Three-Tier Modular Architecture', 'Decoupled presentation (React SPA), business logic (Express Controllers), and persistent storage (MySQL/Sequelize) for clean separation of concerns and independent scalability.'],
+  ['METHOD 1: Three-Tier Modular Architecture', 'Decoupled presentation (React SPA), business logic (Express Controllers), and persistent storage (MongoDB/Mongoose) for clean separation of concerns and independent scalability.'],
   ['METHOD 2: Secure Backend AI Pipeline', 'Direct client-to-AI calls are strictly blocked. All prompts pass through Express controllers where JWT identity is confirmed and input sanitization occurs before calling Gemini.'],
   ['METHOD 3: Dual-Layer Role-Based Security (RBAC)', 'Frontend RoleGuard components block unauthorized UI routes. Backend authorize() middleware inspects cryptographic JWT signatures and returns HTTP 403 Forbidden for violations.'],
   ['METHOD 4: Resilient Academic Fallback Engine', 'If external API quotas or internet disruptions occur during a live demonstration, backend automatically engages a pre-configured local B.Tech knowledge base, ensuring 100% test pass.']
@@ -188,7 +188,7 @@ const flowSteps = [
   ['2. Axios JWT Interceptor', 'Attaches Authorization: Bearer <token> automatically to request headers.'],
   ['3. Express REST API Router', 'Applies Helmet, CORS whitelist, and routes to appropriate controller.'],
   ['4. Auth & Role Middleware', 'Verifies JWT signature and checks user role permissions (STUDENT/MENTOR/ADMIN).'],
-  ['5. Sequelize ORM & MySQL', 'Executes parameterized queries across 15 relational tables.'],
+  ['5. Mongoose ODM & MongoDB', 'Executes parameterized queries across 15 MongoDB collections.'],
   ['6. Google Gemini AI Engine', 'Backend calls Gemini 1.5 Flash SDK with academic prompts (or fallback).'],
   ['7. JSON Client Response', 'Sanitized JSON payload returned; React triggers state update and re-renders UI.']
 ];
@@ -205,7 +205,7 @@ flowSteps.forEach(([b, d], i) => {
 doc.addPage();
 addSlideHeader('Experimental Results', 'SYSTEM VALIDATION & METRICS');
 const resMetrics = [
-  ['15 Relational Tables Synced', '100% Pass', 'All models (Users, Chats, Study Plans, Quizzes, Notes, Feedback) synchronized on MySQL 8.0 without orphaned foreign keys.'],
+  ['15 MongoDB collections Synced', '100% Pass', 'All models (Users, Chats, Study Plans, Quizzes, Notes, Feedback) synchronized on MongoDB Atlas without orphaned document references.'],
   ['AI Response Latency', '~850 ms', 'Average response time for conversational queries and 5-question MCQ generation using backend streaming.'],
   ['Authentication & RBAC', '24h Expiry', 'Stateless JWT tokens sign User ID and Role; passwords secured using 10 bcrypt salt rounds with 100% route guarding.'],
   ['Fault Tolerance & Fallback', '0% Crash Rate', 'Graceful academic fallback guarantees uninterrupted quiz taking and chat even during network outage.']
@@ -227,10 +227,10 @@ addSlideHeader('Conclusion & Project Status', 'FINAL SUMMARY & FUTURE SCOPE');
 doc.rect(55, 100, 350, 420).fillAndStroke('#F8FAFC', '#E2E8F0');
 doc.fillColor(GREEN).fontSize(13).font('Helvetica-Bold').text('Current Status: COMPLETE & READY', 75, 120);
 doc.fillColor(TEXT_DARK).fontSize(9.5).font('Helvetica').text(
-  '1. Working Full-Stack System: Fully integrated React frontend, Express REST APIs, and live MySQL database.\n\n' +
+  '1. Working Full-Stack System: Fully integrated React frontend, Express REST APIs, and live MongoDB database.\n\n' +
   '2. Three Complete Dashboards: Robust role separation between Students, Faculty Mentors, and College Administrators.\n\n' +
   '3. Generative AI Capabilities: Working AI tutor, study planner, quiz generator, notes summarizer, and placement mock interviewer.\n\n' +
-  '4. Production Security: 100% bcrypt password hashing, JWT sessions, and Sequelize ORM SQL injection prevention.',
+  '4. Production Security: 100% bcrypt password hashing, JWT sessions, and Mongoose ODM NoNoSQL Injection prevention.',
   75, 155, { width: 310, lineGap: 6 }
 );
 
@@ -266,3 +266,5 @@ doc.end();
 writeStream.on('finish', () => {
   console.log('PRESENTATION_SLIDES_PDF_GENERATED_SUCCESSFULLY');
 });
+
+
