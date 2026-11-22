@@ -22,7 +22,7 @@ const chatWithAI = async (conversationHistory, userMessage) => {
   }
 
   try {
-    const model = client.getGenerativeModel({ model: 'gemini-3.8-flash' });
+    const model = client.getGenerativeModel({ model: 'gemini-3.5-flash-lite' });
 
     const history = Array.isArray(conversationHistory)
       ? conversationHistory.slice(-12).map(m =>
@@ -75,7 +75,7 @@ const generateStudyPlan = async (subject, topic, targetDate, dailyHours, difficu
 
   if (client) {
     try {
-      const model = client.getGenerativeModel({ model: 'gemini-3.8-flash' });
+      const model = client.getGenerativeModel({ model: 'gemini-3.5-flash-lite' });
       const prompt = `Create a realistic 5-day study plan for a B.Tech engineering student studying "${subject}" with focus on "${topic}".
 Difficulty: ${difficulty}. Target completion date: ${targetDate}. Daily hours: ${dailyHours}.
 Format: Return ONLY a raw JSON object:
@@ -140,7 +140,7 @@ const generateQuiz = async (subject, topic, difficulty, questionCount = 5) => {
 
   if (client) {
     try {
-      const model = client.getGenerativeModel({ model: 'gemini-3.8-flash' });
+      const model = client.getGenerativeModel({ model: 'gemini-3.5-flash-lite' });
       const prompt = `Generate ${questionCount} multiple choice questions for a college engineering exam on subject: "${subject}", topic: "${topic}", difficulty: "${difficulty}".
 Questions must be realistic B.Tech semester/placement level.
 Return ONLY valid JSON array:
@@ -225,7 +225,7 @@ const summarizeNotes = async (extractedText, originalFilename) => {
 
   if (client) {
     try {
-      const model = client.getGenerativeModel({ model: 'gemini-3.8-flash' });
+      const model = client.getGenerativeModel({ model: 'gemini-3.5-flash-lite' });
       const prompt = `You are an experienced college professor helping engineering students revise notes before exams.
 Summarize this document ("${originalFilename}") in simple, high-yield revision bullet points:
 - Quick 2-line summary
@@ -280,7 +280,7 @@ const generateCareerGuidance = async (interests, skills, education, goals) => {
 
   if (client) {
     try {
-      const model = client.getGenerativeModel({ model: 'gemini-3.8-flash' });
+      const model = client.getGenerativeModel({ model: 'gemini-3.5-flash-lite' });
       const prompt = `You are a senior tech placement coordinator for B.Tech engineering students.
 Analyze this profile:
 - Interests: ${interests}
@@ -341,7 +341,7 @@ const evaluateInterviewAnswer = async (jobRole, question, userAnswer) => {
 
   if (client) {
     try {
-      const model = client.getGenerativeModel({ model: 'gemini-3.8-flash' });
+      const model = client.getGenerativeModel({ model: 'gemini-3.5-flash-lite' });
       const prompt = `You are a senior tech interviewer evaluating a B.Tech student for the role: "${jobRole}".
 Question: "${question}"
 Student's Answer: "${userAnswer}"
@@ -389,6 +389,7 @@ module.exports = {
   generateCareerGuidance,
   evaluateInterviewAnswer
 };
+
 
 
 
