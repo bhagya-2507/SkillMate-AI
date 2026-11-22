@@ -1,4 +1,4 @@
-const { StudyPlan, StudyTask } = require('../models');
+﻿const { StudyPlan, StudyTask } = require('../models');
 const geminiService = require('../services/geminiService');
 
 // 1. Create a new Study Plan
@@ -26,11 +26,38 @@ const createStudyPlan = async (req, res, next) => {
       status: 'in_progress'
     });
 
-    // Calculate dates for tasks
+    // Calculate task dates within the target date range
     const startDate = new Date();
-    const tasksToInsert = (generated.tasks || []).map((t, idx) => {
+    startDate.setHours(0, 0, 0, 0);
+
+    const endDate = target_date ? new Date(`${target_date}T00:00:00`) : new Date(startDate);
+    if (!target_date || Number.isNaN(endDate.getTime()) || endDate <= startDate) {
+      endDate.setDate(startDate.getDate() + 5);
+    }
+
+    const availableDays = Math.max(
+      1,
+      Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24))
+    );
+
+    const fallbackTasks = Array.from({ length: Math.min(5, availableDays) }, (_, idx) => ({
+      task_title: `Day ${idx + 1}: ${topic} Study`,
+      task_description: `Study ${topic} in ${subject}, practise important questions and revise concepts. (${daily_hours || 2} hrs)`,
+      day_offset: idx + 1
+    }));
+
+    const sourceTasks = Array.isArray(generated.tasks) && generated.tasks.length > 0
+      ? generated.tasks
+      : fallbackTasks;
+
+    const tasksToInsert = sourceTasks.map((t, idx) => {
+      const offset = Math.min(
+        availableDays,
+        Math.max(1, Number(t.day_offset) || idx + 1)
+      );
       const taskDate = new Date(startDate);
-      taskDate.setDate(startDate.getDate() + (t.day_offset || (idx + 1)));
+      taskDate.setDate(startDate.getDate() + offset);
+
       return {
         study_plan_id: plan._id,
         task_title: t.task_title || `Day ${idx + 1}: Study Milestone`,
@@ -252,3 +279,4 @@ module.exports = {
   addTaskToPlan,
   deleteTask
 };
+
