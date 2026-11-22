@@ -1,6 +1,4 @@
-const fs = require('fs');
-const path = require('path');
-const pdfParse = require('pdf-parse');
+﻿const pdfParse = require('pdf-parse');
 const { Chat, ChatMessage, Note, CareerRecommendation, InterviewPractice } = require('../models');
 const geminiService = require('../services/geminiService');
 
@@ -119,30 +117,24 @@ const deleteChat = async (req, res, next) => {
 // 5. Notes Summarizer
 const summarizeNotes = async (req, res, next) => {
   try {
-    if (!req.file) {
+    if (!req.file || !req.file.buffer) {
       return res.status(400).json({
         success: false,
         message: 'No file uploaded. Please upload a PDF or TXT document.'
       });
     }
 
-    const { originalname, mimetype, path: tempFilePath } = req.file;
+    const { originalname, mimetype, size, buffer } = req.file;
     let extractedText = '';
 
-    if (mimetype === 'application/pdf' || originalname.toLowerCase().endsWith('.pdf')) {
-      const dataBuffer = fs.readFileSync(tempFilePath);
-      const pdfData = await pdfParse(dataBuffer);
+    if (
+      mimetype === 'application/pdf' ||
+      originalname.toLowerCase().endsWith('.pdf')
+    ) {
+      const pdfData = await pdfParse(buffer);
       extractedText = pdfData.text || '';
     } else {
-      // Plain text file
-      extractedText = fs.readFileSync(tempFilePath, 'utf-8');
-    }
-
-    // Clean up temporary upload file
-    try {
-      if (fs.existsSync(tempFilePath)) fs.unlinkSync(tempFilePath);
-    } catch (e) {
-      console.warn('Temp file removal error:', e.message);
+      extractedText = buffer.toString('utf-8');
     }
 
     if (!extractedText.trim() || extractedText.trim().length < 50) {
@@ -152,19 +144,19 @@ const summarizeNotes = async (req, res, next) => {
       });
     }
 
-    // Truncate to reasonable token limit (first 12,000 characters)
     const truncatedText = extractedText.substring(0, 12000);
 
-    // Call service to generate revision notes
-    const summaryData = await geminiService.summarizeNotes(truncatedText, originalname);
+    const summaryData = await geminiService.summarizeNotes(
+      truncatedText,
+      originalname
+    );
 
-    // Save note record in MongoDB
     const noteRecord = await Note.create({
       user_id: req.user.id,
       title: summaryData.title || `Summary: ${originalname}`,
       original_filename: originalname,
       file_type: mimetype.includes('pdf') ? 'pdf' : 'txt',
-      file_size: req.file.size,
+      file_size: size,
       summary: summaryData.summary,
       key_points: summaryData.key_points || []
     });
@@ -175,10 +167,10 @@ const summarizeNotes = async (req, res, next) => {
       note: noteRecord
     });
   } catch (error) {
+    console.error('[Notes Summarizer Error]:', error.message);
     next(error);
   }
 };
-
 // 6. Get Notes Summaries History
 const getNotesHistory = async (req, res, next) => {
   try {
@@ -351,3 +343,4 @@ module.exports = {
   evaluateInterviewPractice,
   getInterviewHistory
 };
+

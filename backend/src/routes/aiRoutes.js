@@ -1,4 +1,4 @@
-const express = require('express');
+﻿const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
@@ -13,19 +13,17 @@ const {
 } = require('../validators/aiValidator');
 
 // Configure Multer for PDF & TXT uploads
-const uploadDir = path.join(__dirname, '../uploads');
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadDir),
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, `${uniqueSuffix}-${file.originalname}`);
-  }
-});
+const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
   const allowedExts = ['.pdf', '.txt'];
   const ext = path.extname(file.originalname).toLowerCase();
-  if (allowedExts.includes(ext) || file.mimetype === 'application/pdf' || file.mimetype === 'text/plain') {
+
+  if (
+    allowedExts.includes(ext) ||
+    file.mimetype === 'application/pdf' ||
+    file.mimetype === 'text/plain'
+  ) {
     cb(null, true);
   } else {
     cb(new Error('Invalid file type. Only PDF and TXT documents are allowed.'), false);
@@ -34,10 +32,9 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({
   storage,
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
+  limits: { fileSize: 10 * 1024 * 1024 },
   fileFilter
 });
-
 // All AI routes require authentication
 router.use(authenticate);
 
@@ -61,3 +58,4 @@ router.post('/interview-feedback', aiLimiter, interviewFeedbackValidator, valida
 router.get('/interview-history', aiController.getInterviewHistory);
 
 module.exports = router;
+
