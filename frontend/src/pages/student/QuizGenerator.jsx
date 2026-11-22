@@ -120,7 +120,7 @@ const QuizGenerator = () => {
       });
 
       if (res.success) {
-        setQuizResult(res);
+        setQuizResult({ ...res, correctCount: res.correct_answers, totalQuestions: res.total_questions, detailedResults: res.results || [] });
         setActiveTab('result');
         toast.success(`Quiz completed! You scored ${res.score}%`);
 
@@ -343,7 +343,7 @@ const QuizGenerator = () => {
           </div>
 
           {(currentQuiz.questions || []).map((q, qIndex) => {
-            const selectedOpt = selectedAnswers[q.id];
+            const selectedOpt = selectedAnswers[q._id];
             const options = [
               { letter: 'A', text: q.option_a },
               { letter: 'B', text: q.option_b },
@@ -352,7 +352,7 @@ const QuizGenerator = () => {
             ];
 
             return (
-              <div key={q.id || qIndex} className="card" style={{ padding: '24px' }}>
+              <div key={q._id || qIndex} className="card" style={{ padding: '24px' }}>
                 <div style={{ display: 'flex', gap: '10px', marginBottom: '16px' }}>
                   <span style={{ width: '28px', height: '28px', borderRadius: '8px', backgroundColor: 'var(--primary)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.85rem', shrink: 0 }}>
                     {qIndex + 1}
@@ -368,7 +368,7 @@ const QuizGenerator = () => {
                     return (
                       <div
                         key={opt.letter}
-                        onClick={() => handleSelectOption(q.id, opt.letter)}
+                        onClick={() => handleSelectOption(q._id, opt.letter)}
                         style={{
                           display: 'flex',
                           alignItems: 'center',
@@ -583,4 +583,6 @@ const QuizGenerator = () => {
 };
 
 export default QuizGenerator;
+
+
 
