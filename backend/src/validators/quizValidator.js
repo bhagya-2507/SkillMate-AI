@@ -1,4 +1,4 @@
-const { body, param } = require('express-validator');
+﻿const { body, param } = require('express-validator');
 
 const generateQuizValidator = [
   body('subject')
@@ -22,7 +22,7 @@ const generateQuizValidator = [
 
 const submitQuizValidator = [
   param('id')
-    .isInt({ min: 1 }).withMessage('Valid quiz ID is required.'),
+    .isMongoId().withMessage('Valid quiz ID is required.'),
   body('answers')
     .isObject().withMessage('Answers object containing question IDs and selected options is required.')
 ];
@@ -31,3 +31,4 @@ module.exports = {
   generateQuizValidator,
   submitQuizValidator
 };
+

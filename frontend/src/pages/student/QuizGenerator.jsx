@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 import { useToast } from '../../context/ToastContext';
 import confetti from 'canvas-confetti';
@@ -115,7 +115,7 @@ const QuizGenerator = () => {
 
     setIsSubmitting(true);
     try {
-      const res = await api.post(`/quizzes/${currentQuiz.id}/submit`, {
+      const res = await api.post(`/quizzes/${currentQuiz._id}/submit`, {
         answers: selectedAnswers
       });
 
@@ -191,7 +191,7 @@ const QuizGenerator = () => {
             {/* Quick B.Tech Exam Presets */}
             <div style={{ marginBottom: '18px' }}>
               <div style={{ fontSize: '0.8rem', fontWeight: 600, color: '#475569', marginBottom: '8px' }}>
-                ⚡ Quick B.Tech Exam Topics (Click to Auto-fill):
+                âš¡ Quick B.Tech Exam Topics (Click to Auto-fill):
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                 {[
@@ -457,7 +457,7 @@ const QuizGenerator = () => {
               {quizResult.score}%
             </div>
             <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F172A', marginTop: '4px' }}>
-              {quizResult.score >= 80 ? '🎉 Excellent Performance!' : quizResult.score >= 60 ? '👍 Good Effort!' : '📚 Review Needed'}
+              {quizResult.score >= 80 ? 'ðŸŽ‰ Excellent Performance!' : quizResult.score >= 60 ? 'ðŸ‘ Good Effort!' : 'ðŸ“š Review Needed'}
             </h2>
             <p style={{ fontSize: '0.95rem', color: '#64748B', marginTop: '6px' }}>
               You answered <strong>{quizResult.correctCount} out of {quizResult.totalQuestions} questions correctly</strong>.
@@ -511,7 +511,7 @@ const QuizGenerator = () => {
 
               <div style={{ backgroundColor: '#F8FAFC', padding: '12px 14px', borderRadius: '8px', fontSize: '0.85rem', color: '#334155', border: '1px solid #E2E8F0' }}>
                 <div style={{ fontWeight: 700, color: '#0F172A', marginBottom: '4px' }}>
-                  💡 Correct Answer: Option {q.correctAnswer}
+                  ðŸ’¡ Correct Answer: Option {q.correctAnswer}
                 </div>
                 <div>{q.explanation}</div>
               </div>
@@ -583,3 +583,4 @@ const QuizGenerator = () => {
 };
 
 export default QuizGenerator;
+
